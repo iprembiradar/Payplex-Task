@@ -1,0 +1,37 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+    padding: 30px 20px;   /* 👈 height increase */
+  min-height: 70px;     /* 👈 minimum height */
+
+  color: white;
+}
+
+.nav-links a {
+  color: white;
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: #f0c040;
+}
+
+
+
+
+
+/* ////////////////footer//////////////////// */
+
+
+
+
+.footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 40px;
+}

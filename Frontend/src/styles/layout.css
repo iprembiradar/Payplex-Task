@@ -1,0 +1,36 @@
+/* reset bhi add karo */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* full page layout */
+html, body, #root {
+  height: 100%;
+}
+
+/* main wrapper */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* content grow karega */
+.content {
+  flex: 1;
+}
+
+.footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+
+  padding: 20px 10px;   /* 👈 height increase */
+  min-height: 60px;     /* 👈 minimum height */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

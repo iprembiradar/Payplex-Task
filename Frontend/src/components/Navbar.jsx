@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "../styles/Navbar.css"
+import { toast } from "react-toastify";
+import "../styles/Navbar.css";
 
 const Navbar = () => {
   const [cartCount, setCartCount] = useState(0);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem("user"));
@@ -28,14 +30,29 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    alert("Logout successful");
+    toast.success("Logout successful");
     navigate("/login");
     window.location.reload();
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    navigate(`/?search=${search}`);
   };
 
   return (
     <nav className="navbar">
       <h2 className="logo">PREMS SHOPPING CLUB</h2>
+
+      <form className="search-box" onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <button type="submit">Search</button>
+      </form>
 
       <div className="nav-links">
         <Link to="/">Home</Link>

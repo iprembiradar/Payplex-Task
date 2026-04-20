@@ -35,3 +35,32 @@
   padding: 15px;
   margin-top: 40px;
 }
+
+/* ////////////////search box//////////////////////////////////// */
+
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.search-box input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  width: 220px;
+}
+
+.search-box button {
+  padding: 8px 12px;
+  border: none;
+  background-color: #f0c14b;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.search-box button:hover {
+  background-color: #ddb347;
+}

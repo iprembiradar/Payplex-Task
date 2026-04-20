@@ -2,15 +2,21 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/Pages.css";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const location = useLocation();
 
   const getProducts = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/products");
-      setProducts(res.data.products || []);
+      const allProducts = res.data.products || [];
+      setProducts(allProducts);
+      setFilteredProducts(allProducts);
     } catch (error) {
       console.log("Fetch products error:", error);
     } finally {
@@ -21,6 +27,21 @@ const Home = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
+  useEffect(() => {
+    const query = new URLSearchParams(location.search).get("search");
+
+    if (!query) {
+      setFilteredProducts(products);
+    } else {
+      const result = products.filter(
+        (item) =>
+          item.title.toLowerCase().includes(query.toLowerCase()) ||
+          item.category.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredProducts(result);
+    }
+  }, [location.search, products]);
 
   const handleAddToCart = (product) => {
     const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
@@ -51,21 +72,21 @@ const Home = () => {
     }
 
     window.dispatchEvent(new Event("cartUpdated"));
-    toast.error("Product added to cart ✅");
+    toast.success("Product added to cart ✅");
   };
 
   return (
     <div className="home-container">
-      <h1>Welcome to Prems Shoping Club 🛍️</h1>
+      <h1>Welcome to Prems Shopping Club 🛍️</h1>
       <p>Best place to buy amazing products.</p>
 
       {loading ? (
         <h3>Loading products...</h3>
-      ) : products.length === 0 ? (
+      ) : filteredProducts.length === 0 ? (
         <h3>No products found</h3>
       ) : (
         <div className="product-list">
-          {products.map((item) => (
+          {filteredProducts.map((item) => (
             <div key={item._id} className="product-card">
               <img
                 src={item.image}
